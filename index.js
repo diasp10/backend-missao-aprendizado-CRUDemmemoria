@@ -14,6 +14,18 @@ app.get('/personagem', function(req, res){
     res.send(lista)
 })
 
+//Endpoint Read by id [GET] /personagem/id
+
+app.get(`/personagem/:id`, function(req, res){
+    const id = req.params.id
+
+    //Acesso item na lista usando id -1
+    const item = lista[id - 1]
+
+    //enviamos o item como resposta http://localhost:3000/personagem/2
+    res.send(item)
+} )
+
 
 
 app.listen(port, () => {
