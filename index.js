@@ -1,3 +1,4 @@
+//fix thunderclient http://localhost:3000/personagem/5
 const express = require('express')
 const app = express()
 const port = 3000
@@ -21,8 +22,11 @@ app.get(`/personagem/:id`, function(req, res){
 
     //Acesso item na lista usando id -1
     const item = lista[id - 1]
-    //enviamos o item como resposta http://localhost:3000/personagem/1
 
+    //Checamos se o item existe
+    if(!item){
+      return res.status(404).send('Item não encontrado')
+    }
     res.send(item)
 } )
 
@@ -56,6 +60,10 @@ app.post(`/personagem`, function(req, res){
 app.put('/personagem/:id', function (req, res) {
   //acessa o id dos parametros de rota
   const id = req.params.id
+  //Checamos se o item do id -1 esta na lista exisbe mensagem caso nao esteja
+  if(!lista[id-1]){
+    return res.status(404).send('Item não encontrado')
+  }
   //Acessamos o body da requisicao
   const body = req.body
   //acessamos a propridade nome do body
@@ -77,7 +85,10 @@ app.put('/personagem/:id', function (req, res) {
 app.delete('/personagem/:id', function (req, res){
   //Acessando parametros de rota
   const id = req.params.id
-  //
+  //Checamos se o item do id -1 esta na lista exisbe mensagem caso nao esteja
+  if(!lista[id-1]){
+    return res.status(404).send('Item não encontrado')
+  }
   //Remoter itenm da lista usando o id-1
   delete lista[id - 1]
   res.send(`Item removido com sucesso: ` + id)
