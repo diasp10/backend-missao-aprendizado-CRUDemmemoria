@@ -21,8 +21,16 @@ app.get(`/personagem/:id`, function(req, res){
 
     //Acesso item na lista usando id -1
     const item = lista[id - 1]
-
     //enviamos o item como resposta http://localhost:3000/personagem/1
+
+    if (!novoItem){
+      return res.send(`Corpo da requisicao deve estar presente no body`)
+    }
+    //Checar se o novo item esta presente ou nao
+    if(lista.includes(novoItem)){
+      return res.send(`Esse item ja existe na lista`)
+    }
+
     res.send(item)
 } )
 
@@ -37,6 +45,14 @@ app.post(`/personagem`, function(req, res){
 		//Acessamos a propriedade `nome` do body
     const novoItem = body.nome
     console.log(body)
+    //Checar se o nome esta presente no body
+    if (!novoItem){
+      return res.send(`Corpo da requisicao deve estar presente no body`)
+    }
+    //Checar se o novo item esta presente ou nao
+    if(lista.includes(novoItem)){
+      return res.send(`Esse item ja existe na lista`)
+    }
 
     //Adicionamos na lista
 		lista.push(novoItem)
@@ -54,6 +70,14 @@ app.put('/personagem/:id', function (req, res) {
   const novoItem = body.nome
   //atualizamos na lista o novoItem pelo id - 1
   lista[id - 1] = novoItem
+
+  if (!novoItem){
+    return res.send(`Corpo da requisicao deve estar presente no body`)
+  }
+  //Checar se o novo item esta presente ou nao
+  if(lista.includes(novoItem)){
+    return res.send(`Esse item ja existe na lista`)
+  }
 
   res.send('Item atualizado com sucesso: ' + id + ' - ' + novoItem)
 })
