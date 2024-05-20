@@ -58,6 +58,15 @@ app.put('/personagem/:id', function (req, res) {
   res.send('Item atualizado com sucesso: ' + id + ' - ' + novoItem)
 })
 
+app.delete('/personagem/:id', function (req, res){
+  //Acessando parametros de rota
+  const id = req.params.id
+  //
+  //Remoter itenm da lista usando o id-1
+  delete lista[id - 1]
+  res.send(`Item removido com sucesso: ` + id)
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
