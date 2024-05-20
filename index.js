@@ -22,7 +22,7 @@ app.get(`/personagem/:id`, function(req, res){
     //Acesso item na lista usando id -1
     const item = lista[id - 1]
 
-    //enviamos o item como resposta http://localhost:3000/personagem
+    //enviamos o item como resposta http://localhost:3000/personagem/1
     res.send(item)
 } )
 
@@ -35,15 +35,28 @@ app.post(`/personagem`, function(req, res){
     //acessamos o body da requisicao
     const body = req.body
 		//Acessamos a propriedade `nome` do body
-    const Novoitem = body.nome
+    const novoItem = body.nome
     console.log(body)
 
     //Adicionamos na lista
-		lista.push(Novoitem)
+		lista.push(novoItem)
 
-    res.send(`Item adicionado com sucesso: `+ Novoitem)
-}
-)
+    res.send(`Item adicionado com sucesso: `+ novoItem)
+})
+
+//endpoint update[put] /personagem/:id
+app.put('/personagem/:id', function (req, res) {
+  //acessa o id dos parametros de rota
+  const id = req.params.id
+  //Acessamos o body da requisicao
+  const body = req.body
+  //acessamos a propridade nome do body
+  const novoItem = body.nome
+  //atualizamos na lista o novoItem pelo id - 1
+  lista[id - 1] = novoItem
+
+  res.send('Item atualizado com sucesso: ' + id + ' - ' + novoItem)
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
